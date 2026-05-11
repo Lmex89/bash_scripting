@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Source and destination folders
-source_folder="/media/lmex89/backup/Plex/downloads/completed"
-destination_folder="/media/lmex89/backup/Plex/movies"
+source_folder="/mnt/data/Plex/downloads/completed"
+destination_folder="/mnt/data/Plex/movies"
 
 # Synchronize files using rsync, without deleting any in the destination
 timestamp=$(date +"%Y-%m-%d %T")

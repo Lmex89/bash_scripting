@@ -1,0 +1,17 @@
+# Virtual environment
+.venv_cron/
+
+# Compiled binaries
+a.out
+
+# Data files (not Python)
+id_soles.py
+
+# Hardcoded credentials — secret key
+remove_urls.py
+
+# Log files
+*.log
+
+# User config (track config.ini.example instead)
+config.ini

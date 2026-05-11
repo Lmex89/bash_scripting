@@ -1,0 +1,44 @@
+# Configuration example for backup.py
+# Copy to config.ini and customize
+
+[backup]
+# Source directory to back up (can use ~ for home)
+source = ~/Documentos
+
+# Destination directory for backups
+dest = /mnt/data/bkp
+
+# Number of backups to keep (0 = keep all)
+retention = 3
+
+# Minimum free disk space in GiB required to run backup
+min_disk_gb = 10
+
+# Timeout for tar command in seconds
+tar_timeout = 3600
+
+[tar]
+# How to handle files with higher permissions than the script runner
+# strict  = abort backup if any file is unreadable (original behavior)
+# skip    = use --ignore-failed-read, log warning, continue (recommended)
+permission_strategy = skip
+
+[logging]
+# Log file path (can use absolute path or relative to dest)
+log_file = backup.log
+
+# Log rotation size (e.g., "10 MB", "1 GB")
+rotation = 10 MB
+
+# How long to keep old log files (in days)
+retention_days = 30
+
+# Console log level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+console_level = INFO
+
+# File log level (usually DEBUG for troubleshooting)
+file_level = DEBUG
+
+[lock]
+# Lock file path (prevent concurrent runs)
+file = /tmp/backup.lock

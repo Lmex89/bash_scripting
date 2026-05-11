@@ -7,7 +7,7 @@ log_file="/home/lmex89/Documentos/logs/folder_cleaning_log.txt"
 echo "Folder cleaning started at $(date)" >> "$log_file"
 
 # Directory to be cleaned
-directory_to_clean="/media/lmex89/backup/Plex/downloads/completed"
+directory_to_clean="/mnt/data/Plex/downloads/completed"
 
 # Check if the directory exists before deleting its contents
 if [ -d "$directory_to_clean" ]; then
