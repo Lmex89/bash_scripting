@@ -3,7 +3,7 @@
 
 [backup]
 # Source directory to back up (can use ~ for home)
-source = ~/Documentos
+source = ~
 
 # Destination directory for backups
 dest = /mnt/data/bkp
@@ -22,6 +22,9 @@ tar_timeout = 3600
 # strict  = abort backup if any file is unreadable (original behavior)
 # skip    = use --ignore-failed-read, log warning, continue (recommended)
 permission_strategy = skip
+
+# Directories/files to exclude (comma-separated, relative to source root)
+exclude = .cache, .venv*, .npm, snap, .local/share/Trash
 
 [logging]
 # Log file path (can use absolute path or relative to dest)

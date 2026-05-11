@@ -1,6 +1,10 @@
 # Virtual environment
 .venv_cron/
 
+# Python cache
+__pycache__/
+*.pyc
+
 # Compiled binaries
 a.out
 

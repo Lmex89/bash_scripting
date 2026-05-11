@@ -131,7 +131,7 @@ def run_backup(cfg: Config) -> ExecutionMetrics:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Production-grade backup for ~/Documentos",
+        description="Production-grade backup for home directory",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=(
             "Environment variables:\n"
@@ -190,7 +190,7 @@ def config_from_args(args: argparse.Namespace, cfg: Config) -> Config:
 
 def main(argv: Optional[list[str]] = None) -> int:
     args = build_parser().parse_args(argv)
-    
+
     # Load config (priority: CLI args > env vars > config file > defaults)
     cfg = load_config()
     cfg = config_from_args(args, cfg)

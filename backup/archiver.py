@@ -37,6 +37,10 @@ class TarArchiver:
             src.name,
         ]
 
+        for pattern in cfg.tar.exclude:
+            cmd.extend(["--exclude", pattern])
+            self._log.debug(f"Exclude pattern added: {pattern}")
+
         if cfg.tar.permission_strategy == "skip":
             cmd.append("--ignore-failed-read")
 

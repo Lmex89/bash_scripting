@@ -4,7 +4,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
 
-CONFIG_FILE = Path("config.ini")
+# Resolve config.ini relative to this file's directory (scripts/), not CWD
+CONFIG_FILE = Path(__file__).resolve().parent.parent / "config.ini"
 
 
 @dataclass
@@ -19,6 +20,13 @@ class BackupConfig:
 @dataclass
 class TarConfig:
     permission_strategy: str = "skip"  # strict or skip
+    exclude: list[str] = field(default_factory=lambda: [
+        ".cache",
+        ".venv_cron",
+        ".npm",
+        "snap",
+        ".local/share/Trash",
+    ])
 
 
 @dataclass
@@ -121,6 +129,10 @@ def load_config(config_path: Optional[Path] = None) -> Config:
                 strategy = section["permission_strategy"].lower()
                 if strategy in ("strict", "skip"):
                     cfg.tar.permission_strategy = strategy
+            if "exclude" in section:
+                cfg.tar.exclude = [
+                    p.strip() for p in section["exclude"].split(",") if p.strip()
+                ]
 
         # Logging section
         if parser.has_section("logging"):
