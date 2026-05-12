@@ -31,7 +31,8 @@ class TarArchiver:
 
         cmd = [
             "tar",
-            "-czf", str(tmp_path),
+            "-cf", str(tmp_path),
+            "--use-compress-program", f"pigz -p {cfg.backup.compression_threads}",
             "--exclude", str(dest),
             "-C", str(src.parent),
             src.name,

@@ -39,6 +39,7 @@ class PreFlightValidator:
         self._validate_destination()
         self._validate_disk_space()
         self._validate_permissions()
+        self._validate_compression()
         self._log.info("All pre-flight checks passed")
 
     def _validate_source(self) -> None:
@@ -102,6 +103,24 @@ class PreFlightValidator:
         self._log.warning(
             f"Found {len(unreadable)} unreadable files (permission_strategy=skip)"
         )
+
+    def _validate_compression(self) -> None:
+        """Verify pigz is available for parallel compression."""
+        try:
+            result = subprocess.run(
+                ["pigz", "--version"],
+                capture_output=True,
+                text=True,
+                timeout=5,
+            )
+            if result.returncode != 0:
+                raise PreFlightError("pigz not found - required for parallel compression")
+            version = result.stdout.splitlines()[0] if result.stdout else "unknown"
+            self._log.info(f"Compression OK  (pigz {version})")
+        except FileNotFoundError:
+            raise PreFlightError("pigz not installed - install with: sudo apt install pigz")
+        except subprocess.TimeoutExpired:
+            raise PreFlightError("pigz version check timed out")
 
     def estimate_source_size(self) -> Optional[int]:
         """Estimate source directory size in bytes."""

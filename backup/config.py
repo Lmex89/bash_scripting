@@ -15,6 +15,7 @@ class BackupConfig:
     retention: int = 3
     min_disk_gb: int = 10
     tar_timeout: int = 3600
+    compression_threads: int = 4
 
 
 @dataclass
@@ -121,6 +122,8 @@ def load_config(config_path: Optional[Path] = None) -> Config:
                 cfg.backup.min_disk_gb = int(section["min_disk_gb"])
             if "tar_timeout" in section:
                 cfg.backup.tar_timeout = int(section["tar_timeout"])
+            if "compression_threads" in section:
+                cfg.backup.compression_threads = int(section["compression_threads"])
         
         # Tar section
         if parser.has_section("tar"):
@@ -163,5 +166,7 @@ def load_config(config_path: Optional[Path] = None) -> Config:
         cfg.backup.retention = int(env_ret)
     if env_min_disk := os.environ.get("BACKUP_MIN_DISK_GB"):
         cfg.backup.min_disk_gb = int(env_min_disk)
+    if env_threads := os.environ.get("BACKUP_COMPRESSION_THREADS"):
+        cfg.backup.compression_threads = int(env_threads)
 
     return cfg

@@ -31,7 +31,7 @@ Personal utility scripts for system maintenance and small tasks.
 
 - **Modular**: SRP — each module handles one concern (config, logging, locking, validation, archiving, retention, rollback, metrics)
 - **Config**: `config.ini` (INI format) → env vars (`BACKUP_*`) → CLI args (highest priority)
-- **Pre-flight**: source exists, dest writable, disk ≥ 10 GiB free, permission scan
+- **Pre-flight**: source exists, dest writable, disk ≥ 10 GiB free, permission scan, pigz availability
 - **Permission strategy**: `skip` (default) or `strict` — `skip` uses `--ignore-failed-read` and logs warnings for unreadable files
 - **Atomic**: tar → `.tmp` → SHA256 → rename to `.tar.gz`; `tar -tzf` verifies integrity
 - **Retention**: sorted by mtime, keeps last N (default 3, `--retention` / `BACKUP_RETENTION`)
@@ -40,12 +40,28 @@ Personal utility scripts for system maintenance and small tasks.
 - **Signal**: SIGINT/SIGTERM cleans temp files, releases lock
 - **Logging**: loguru — JSON file (rotation 10 MB, retention 30d) + colorized stderr
 - **Dry-run**: `--dry-run` to simulate
+- **Compression**: parallel gzip via `pigz` (default 4 threads, configurable)
 
 ### Cron (every 2 days at 04:00)
 
 ```
 0 4 */2 * * /home/lmex89/Documentos/scripts/.venv_cron/bin/python /home/lmex89/Documentos/scripts/backup.py 2>&1 | logger -t backup
 ```
+
+### Environment Variables
+
+| Variable | Purpose | Default |
+|----------|---------|---------|
+| `BACKUP_SOURCE` | Source directory | `~/Documentos` |
+| `BACKUP_DEST` | Destination directory | `/mnt/data/bkp` |
+| `BACKUP_RETENTION` | Backups to keep | `3` |
+| `BACKUP_MIN_DISK_GB` | Min free space required | `10` |
+| `BACKUP_COMPRESSION_THREADS` | Parallel compression threads | `4` |
+
+### System Dependencies
+
+- `tar` (GNU tar) — archive creation
+- `pigz` — parallel gzip compression (install: `sudo apt install pigz`)
 
 ## Background
 

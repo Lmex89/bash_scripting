@@ -17,6 +17,9 @@ min_disk_gb = 10
 # Timeout for tar command in seconds
 tar_timeout = 3600
 
+# Number of threads for parallel compression (pigz)
+compression_threads = 4
+
 [tar]
 # How to handle files with higher permissions than the script runner
 # strict  = abort backup if any file is unreadable (original behavior)
