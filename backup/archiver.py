@@ -34,8 +34,6 @@ class TarArchiver:
             "-cf", str(tmp_path),
             "--use-compress-program", f"pigz -p {cfg.backup.compression_threads}",
             "--exclude", str(dest),
-            "-C", str(src.parent),
-            src.name,
         ]
 
         for pattern in cfg.tar.exclude:
@@ -44,6 +42,12 @@ class TarArchiver:
 
         if cfg.tar.permission_strategy == "skip":
             cmd.append("--ignore-failed-read")
+
+        cmd.extend([
+            "--warning=no-file-changed",
+            "-C", str(src.parent),
+            src.name,
+        ])
 
         try:
             result = subprocess.run(
