@@ -8,7 +8,6 @@ Personal utility scripts for system maintenance.
 |---|---|
 | `backup.py` | Production-grade backup of `~/Documentos` → `/mnt/data/bkp/` (atomic writes, integrity checks, retention) |
 | `backup_dir.sh` | Legacy backup — kept as safety net |
-| `entrevista.py` | Standalone coding exercise (character frequency counter) |
 
 ## Setup
 

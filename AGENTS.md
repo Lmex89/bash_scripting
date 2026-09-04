@@ -6,7 +6,6 @@ Compact guide for OpenCode agents to avoid common mistakes.
 - **Virtual Environment:** Always use `.venv_cron/bin/python` to execute Python scripts. Do NOT use default `python` or assume `.venv` exists.
 - **Active Backup Script:** `backup.py` is the production backup orchestrator. `backup_dir.sh` is a legacy fallback; do not modify or run it.
 - **Unused Config Duplicate:** The active configuration is loaded from `/home/lmex89/Documentos/scripts/config.ini` in the workspace root. The file `/home/lmex89/Documentos/scripts/backup/config.ini` is an unused duplicate; do not modify or read it for active settings.
-- **Standalone Script:** `entrevista.py` is a standalone character-frequency coding exercise and is entirely separate from the backup package.
 
 ## Codebase Exploration
 - **Code Graph Mandatory:** Always use `codegraph_*` tools as a mandatory first step for search, symbol lookups, relationship tracing, and codebase exploration over generic search tools (like standard grep/glob).
