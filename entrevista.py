@@ -3,7 +3,6 @@ from functools import wraps
 
 STRING_INPUT = "palabra"
 
-
 def format_dict_tuple(func):
     @wraps(func)
     def wrapper(*args, **kwargs) -> List[tuple[str, int]]:
@@ -27,7 +26,6 @@ def count_string(string_input: str) -> dict[str, int]:
 
     for char in string_input:
         contador[char] = contador.get(char, 0) + 1
-
     return contador
 
 
